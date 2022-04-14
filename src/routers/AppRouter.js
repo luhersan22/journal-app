@@ -27,13 +27,17 @@ export const AppRouter = () => {
     //Para manejar si esta loggeado o no
     const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 
+
+    //Esto se realiza para almacenar datos del state si se está autenticado
     useEffect(() => {
 
-        //Este metodo del firebase crea un observable que se suscribe a los cambios en la autenticacion
+        //Este metodo del firebase "onAuthStateChanged" crea un observable que se suscribe a los cambios en la autenticacion, 
+        //se puede disparar mas de una vez
         //Cada cambio en la autenticacion se ejecuta esta funcion
         firebase.auth().onAuthStateChanged( async (user) => {
-            if(user?.uid) {
-                dispatch( login (user.uid, user.displayName) );
+            if(user?.uid) { //Si existe (indica q esta autenticado)
+                
+                dispatch( login (user.uid, user.displayName) ); //Si esta autenticado en firebase actualiza el estado de redux
                 setIsLoggedIn(true);
 
                 const notes = await loadNotes( user.uid ); //helper / Carga las notas del usuario
@@ -42,6 +46,7 @@ export const AppRouter = () => {
             } else {
                 setIsLoggedIn(false);
             }
+            
             setCheking(false);
         });
     }, [ dispatch, setCheking, setIsLoggedIn ])

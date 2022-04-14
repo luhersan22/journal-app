@@ -21,7 +21,7 @@ firebase.initializeApp(firebaseConfig);
 // referencia de database a firestores
 const db = firebase.firestore();
 
-// para poder autenticarse con google
+// el provider para poder autenticarse con google
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
 export {
