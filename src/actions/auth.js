@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 
 import { firebase, googleAuthProvider } from "../firebase/firebaseConfig";
 import { types } from "../types/types";
-import { finishLoading, setError, startLoading } from "./ui";
+import { finishLoading, startLoading } from "./ui";
 
 
 //* Estas funciones siempre devuelven  un callback
