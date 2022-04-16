@@ -12,14 +12,14 @@ export const notesReducer = (state = initialState, action) => {
             return { 
                 ...state,
                 active: {
-                    id: action.payload.id,
+                    ...action.payload,
                 }
             }
 
         case types.notesLoad:
             return { 
                 ...state,
-                notes: [action.payload]
+                notes: [ ...action.payload ]
             }
 
         default:

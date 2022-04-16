@@ -5,14 +5,14 @@ import {
     Switch 
 } from 'react-router-dom';
 import { firebase } from "../firebase/firebaseConfig";
+import { useDispatch } from 'react-redux';
+
 import { JournalScreen } from '../components/journal/JournalScreen';
 import { AuthRouter } from './AuthRouter';
-import { useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
 import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
-import { loadNotes } from '../helpers/loadNotes';
-import { setNotes } from '../actions/notes';
+import { startLoadingNotes } from '../actions/notes';
 
 //Siempre al cargar la pagina pasa por este componente (AppRouter)
 export const AppRouter = () => {
@@ -39,9 +39,7 @@ export const AppRouter = () => {
                 
                 dispatch( login (user.uid, user.displayName) ); //Si esta autenticado en firebase actualiza el estado de redux
                 setIsLoggedIn(true);
-
-                const notes = await loadNotes( user.uid ); //helper / Carga las notas del usuario
-                dispatch( setNotes(notes) ); //Se llama al reducer para guardar las notas en el state
+                dispatch( startLoadingNotes(user.uid) ); //Se llama al reducer para guardar las notas en el state
 
             } else {
                 setIsLoggedIn(false);
